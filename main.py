@@ -73,11 +73,13 @@ for i in input:
     buffer.append(i.strip() + "\n")
 
 if stripStyleTag:
-    for i in range(buffer.index('<style type="text/css">'), buffer.index("</style>")):
+    for i in range(
+        buffer.index("</style>\n"), buffer.index('<style type="text/css">\n') - 1, -1
+    ):
         buffer.pop(i)
 
 if insertStylesheets:
-    headEndIndex = buffer.index("</head>") - 1
+    headEndIndex = buffer.index("</head>\n")
     for i in stylesheets:
         buffer.insert(headEndIndex, str(i))
         headEndIndex += 1
