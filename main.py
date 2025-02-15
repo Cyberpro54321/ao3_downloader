@@ -88,7 +88,11 @@ for i in input:
 #    a += 1
 print(a)
 for i in buffer1:
-    buffer2.append(indent(1)+i)
+    if i.find("</head>") != -1 or i.find("</body>") != -1 or i.find("</div>") != -1:
+        indentLevel -= 1
+    buffer2.append(indent(indentLevel)+i)
+    if i.find("<head") != -1 or i.find("<body") != -1 or i.find("<div") != -1:
+        indentLevel += 1
 
 for i in buffer2:
     output.write(i)
