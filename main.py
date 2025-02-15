@@ -55,14 +55,16 @@ stylesheets = (
     Stylesheet("sandbox", "ao3css", "screen"),
     Stylesheet(args.fileName, "Workskins", "screen")
 )
-filebuffer = []
+buffer1 = []
+buffer2 = []
 indentLevel = 0
 
 # code
 input = open("../Raws/"+args.fileName+".html", "r")
 output = open("../Complete/"+args.fileName+".html", "w")
+buffer1.clear()
 for i in input:
-    filebuffer.append(i.strip()+"\n")
+    buffer1.append(i.strip()+"\n")
 
 #for i in input:
 #    writeLine = True;
@@ -85,7 +87,10 @@ for i in input:
 #        output.write(buffer)
 #    a += 1
 print(a)
-for i in filebuffer:
+for i in buffer1:
+    buffer2.append(indent(1)+i)
+
+for i in buffer2:
     output.write(i)
 
 #print(f.readline())
