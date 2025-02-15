@@ -85,6 +85,18 @@ if insertStylesheets:
         headEndIndex += 1
     del headEndIndex
 
+if True:
+    indexPreface = buffer.index('<div id="preface">\n')
+    buffer.pop(indexPreface)
+    buffer.insert(indexPreface, '<div id="outer" class="wrapper">\n')
+    buffer.insert(indexPreface, '<div id="inner" class="wrapper">\n')
+    buffer.insert(indexPreface, '<div id="main" class="works-show-region">\n')
+    buffer.insert(indexPreface, '<div class="wrapper">\n')
+    del indexPreface
+    indexEndBody = buffer.index("</body>\n")
+    buffer.insert(indexEndBody, "</div>\n")
+    del indexEndBody
+
 for line in buffer:
     if line.find("</head>") != -1 or line.find("</div>") != -1:
         indentLevel -= 1
