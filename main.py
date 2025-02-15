@@ -11,7 +11,7 @@ class Stylesheet:
         self.folder = folder
         self.media = media
     def __str__(self):
-        return f'  <link rel="stylesheet" type="text/css" media="{self.media}" href="../{self.folder}/{self.file}.css">\n'
+        return f'<link rel="stylesheet" type="text/css" media="{self.media}" href="../{self.folder}/{self.file}.css">\n'
 def indent(level):
     temp = ""
     for i in range(level):
@@ -55,46 +55,49 @@ stylesheets = (
     Stylesheet("sandbox", "ao3css", "screen"),
     Stylesheet(args.fileName, "Workskins", "screen")
 )
-buffer1 = []
-buffer2 = []
 indentLevel = 0
 
 # code
 input = open("../Raws/"+args.fileName+".html", "r")
 output = open("../Complete/"+args.fileName+".html", "w")
-buffer1.clear()
+deIndentBuffer = []
 for i in input:
-    buffer1.append(i.strip()+"\n")
+    deIndentBuffer.append(i.strip()+"\n")
 
-#for i in input:
-#    writeLine = True;
-#    buffer = str(i)
-#    if stripStyleTag:
-#        if not styleStartFound:
-#            if i.find('type="text/css">') != -1:
-#                styleStartFound = True
-#        if styleStartFound and not styleEndFound:
-#            writeLine = False
-#            if i.find('</style>') != -1:
-#                styleEndFound = True
-#    if insertStylesheets and not headEndFound:
-#        if i.find('</head>') != -1:
-#            headEndFound = True
-#            for j in stylesheets:
-#                output.write(str(j))
-#
-#    if writeLine == True:
-#        output.write(buffer)
-#    a += 1
+styleBuffer = []
+for i in deIndentBuffer:
+    writeLine = True;
+    if stripStyleTag:
+        if not styleStartFound:
+            if i.find('<style') != -1:
+                styleStartFound = True
+        if styleStartFound and not styleEndFound:
+            writeLine = False
+            if i.find('</style>') != -1:
+                styleEndFound = True
+
+    if writeLine == True:
+        styleBuffer.append(i)
+
+deIndentBuffer.clear()
+for i in styleBuffer:
+    if insertStylesheets and not headEndFound:
+        if i.find('</head>') != -1:
+            headEndFound = True
+            for j in stylesheets:
+                styleBuffer.insert(a, str(j))
+                a += 1
+    a += 1
 print(a)
-for i in buffer1:
+indentBuffer = []
+for i in styleBuffer:
     if i.find("</head>") != -1 or i.find("</body>") != -1 or i.find("</div>") != -1:
         indentLevel -= 1
-    buffer2.append(indent(indentLevel)+i)
+    indentBuffer.append(indent(indentLevel)+i)
     if i.find("<head") != -1 or i.find("<body") != -1 or i.find("<div") != -1:
         indentLevel += 1
 
-for i in buffer2:
+for i in indentBuffer:
     output.write(i)
 
 #print(f.readline())
