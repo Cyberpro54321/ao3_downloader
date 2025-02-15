@@ -11,7 +11,7 @@ class Stylesheet:
         self.folder = folder
         self.media = media
     def __str__(self):
-        return f'<link rel="stylesheet" type="text/css" media="{self.media}" href="../{self.folder}/{self.file}.css"'
+        return f'  <link rel="stylesheet" type="text/css" media="{self.media}" href="../{self.folder}/{self.file}.css">\n'
 
 # variables
 stripStyleTag = True
@@ -56,6 +56,7 @@ input = open("../Raws/"+args.fileName+".html", "r")
 output = open("../Complete/"+args.fileName+".html", "w")
 for i in input:
     writeLine = True;
+    buffer = str(i)
     if stripStyleTag:
         if not styleStartFound:
             if i.find('type="text/css">') != -1:
@@ -68,10 +69,10 @@ for i in input:
         if i.find('</head>') != -1:
             headEndFound = True
             for j in stylesheets:
-                output.write(j)
+                output.write(str(j))
 
     if writeLine == True:
-        output.write(i)
+        output.write(buffer)
     a += 1
 print(a)
 
