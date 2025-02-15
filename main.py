@@ -91,10 +91,10 @@ for i in styleBuffer:
 print(a)
 indentBuffer = []
 for i in styleBuffer:
-    if i.find("</head>") != -1 or i.find("</body>") != -1 or i.find("</div>") != -1:
+    if i.find("</head>") != -1 or i.find("</div>") != -1:
         indentLevel -= 1
     indentBuffer.append(indent(indentLevel)+i)
-    if i.find("<head") != -1 or i.find("<body") != -1 or i.find("<div") != -1:
+    if i.find("<head") != -1 or i.find("<div") != -1:
         indentLevel += 1
 
 for i in indentBuffer:
