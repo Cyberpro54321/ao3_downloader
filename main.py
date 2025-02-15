@@ -99,9 +99,3 @@ for i in styleBuffer:
 
 for i in indentBuffer:
     output.write(i)
-
-#print(f.readline())
-#print(f.readline())
-#print(type(f.readline()))
-#print(type(f))
-#print(args.fileName)
