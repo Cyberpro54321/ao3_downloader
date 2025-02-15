@@ -12,6 +12,11 @@ class Stylesheet:
         self.media = media
     def __str__(self):
         return f'  <link rel="stylesheet" type="text/css" media="{self.media}" href="../{self.folder}/{self.file}.css">\n'
+def indent(level):
+    temp = ""
+    for i in range(level):
+        temp = temp+"  "
+    return temp
 
 # variables
 stripStyleTag = True
