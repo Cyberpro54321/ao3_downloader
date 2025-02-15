@@ -54,28 +54,33 @@ stylesheets = (
 # code
 input = open("../Raws/"+args.fileName+".html", "r")
 output = open("../Complete/"+args.fileName+".html", "w")
+filebuffer = []
 for i in input:
-    writeLine = True;
-    buffer = str(i)
-    if stripStyleTag:
-        if not styleStartFound:
-            if i.find('type="text/css">') != -1:
-                styleStartFound = True
-        if styleStartFound and not styleEndFound:
-            writeLine = False
-            if i.find('</style>') != -1:
-                styleEndFound = True
-    if insertStylesheets and not headEndFound:
-        if i.find('</head>') != -1:
-            headEndFound = True
-            for j in stylesheets:
-                output.write(str(j))
+    filebuffer.append(i.strip()+"\n")
 
-    if writeLine == True:
-        output.write(buffer)
-    a += 1
+#for i in input:
+#    writeLine = True;
+#    buffer = str(i)
+#    if stripStyleTag:
+#        if not styleStartFound:
+#            if i.find('type="text/css">') != -1:
+#                styleStartFound = True
+#        if styleStartFound and not styleEndFound:
+#            writeLine = False
+#            if i.find('</style>') != -1:
+#                styleEndFound = True
+#    if insertStylesheets and not headEndFound:
+#        if i.find('</head>') != -1:
+#            headEndFound = True
+#            for j in stylesheets:
+#                output.write(str(j))
+#
+#    if writeLine == True:
+#        output.write(buffer)
+#    a += 1
 print(a)
-
+for i in filebuffer:
+    output.write(i)
 
 #print(f.readline())
 #print(f.readline())
