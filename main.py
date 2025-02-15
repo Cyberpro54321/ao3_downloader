@@ -29,10 +29,6 @@ def indent(level):
 # variables
 stripStyleTag = True
 insertStylesheets = True
-a = 0
-styleStartFound = False
-styleEndFound = False
-headEndFound = False
 stylesheets = (
     Stylesheet("01-core", "ao3css", "screen"),
     Stylesheet("02-elements", "ao3css", "screen"),
@@ -72,42 +68,24 @@ indentLevel = 0
 # code
 input = open("../Raws/" + args.fileName + ".html", "r")
 output = open("../Complete/" + args.fileName + ".html", "w")
-deIndentBuffer = []
+buffer = []
 for i in input:
-    deIndentBuffer.append(i.strip() + "\n")
+    buffer.append(i.strip() + "\n")
 
-styleBuffer = []
-for i in deIndentBuffer:
-    writeLine = True
-    if stripStyleTag:
-        if not styleStartFound:
-            if i.find("<style") != -1:
-                styleStartFound = True
-        if styleStartFound and not styleEndFound:
-            writeLine = False
-            if i.find("</style>") != -1:
-                styleEndFound = True
+if stripStyleTag:
+    for i in range(buffer.index('<style type="text/css">'), buffer.index("</style>")):
+        buffer.pop(i)
 
-    if writeLine == True:
-        styleBuffer.append(i)
+if insertStylesheets:
+    headEndIndex = buffer.index("</head>") - 1
+    for i in stylesheets:
+        buffer.insert(headEndIndex, str(i))
+        headEndIndex += 1
+    del headEndIndex
 
-deIndentBuffer.clear()
-for i in styleBuffer:
-    if insertStylesheets and not headEndFound:
-        if i.find("</head>") != -1:
-            headEndFound = True
-            for j in stylesheets:
-                styleBuffer.insert(a, str(j))
-                a += 1
-    a += 1
-print(a)
-indentBuffer = []
-for i in styleBuffer:
-    if i.find("</head>") != -1 or i.find("</div>") != -1:
+for line in buffer:
+    if line.find("</head>") != -1 or line.find("</div>") != -1:
         indentLevel -= 1
-    indentBuffer.append(indent(indentLevel) + i)
-    if i.find("<head") != -1 or i.find("<div") != -1:
+    output.write(indent(indentLevel) + line)
+    if line.find("<head") != -1 or line.find("<div") != -1:
         indentLevel += 1
-
-for i in indentBuffer:
-    output.write(i)
