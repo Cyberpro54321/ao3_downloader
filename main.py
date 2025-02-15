@@ -50,11 +50,12 @@ stylesheets = (
     Stylesheet("sandbox", "ao3css", "screen"),
     Stylesheet(args.fileName, "Workskins", "screen")
 )
+filebuffer = []
+indentLevel = 0
 
 # code
 input = open("../Raws/"+args.fileName+".html", "r")
 output = open("../Complete/"+args.fileName+".html", "w")
-filebuffer = []
 for i in input:
     filebuffer.append(i.strip()+"\n")
 
