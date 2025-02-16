@@ -126,9 +126,6 @@ if doHtmlTagChanges:
         )
     except:
         h2location = buffer.index('<h2 class="heading">Chapter 1</h2>\n')
-        # chapterNo = 1
-        # while chapterNo > 0:
-        #     print('f')
     buffer.pop(h2location - 3)
 
 
