@@ -102,6 +102,17 @@ if doHtmlTagChanges:
         '<div class="afterword preface group">\n'
     )
     buffer[buffer.index('<dl class="tags">\n')] = '<dl class="tags work meta group">\n'
+    for i in range(len(buffer)):
+        place = buffer[i].find("<h1")
+        if place != -1:
+            h1location = i
+    buffer[h1location] = (
+        '<h1 class="title heading"' + buffer[h1location][buffer[h1location].find(">") :]
+    )
+    buffer.insert(h1location, '<div class="preface group">\n')
+    buffer.insert(h1location, '<div id="workskin">\n')
+    buffer.insert(h1location, "</div>\n")
+    buffer.insert(h1location, "</div>\n")
 
 
 for line in buffer:
