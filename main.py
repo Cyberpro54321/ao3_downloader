@@ -110,9 +110,10 @@ if doHtmlTagChanges:
         place = buffer[i].find("<h1")
         if place != -1:
             h1location = i
-    buffer[h1location] = (
-        '<h1 class="title heading"' + buffer[h1location][buffer[h1location].find(">") :]
-    )
+    h1content = buffer[h1location][buffer[h1location].find(">") :]
+    buffer[h1location] = '<h1 class="title heading"' + h1content
+    h1contentRaw = h1content[1:-6]
+    print(h1contentRaw)
     buffer.insert(h1location, '<div class="preface group">\n')
     buffer.insert(h1location, '<div id="workskin">\n')
     buffer.insert(h1location, "</div>\n")
