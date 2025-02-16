@@ -95,8 +95,10 @@ if doHtmlTagChanges:
     buffer.insert(indexPreface, '<div class="wrapper">\n')
     del indexPreface
     indexEndBody = buffer.index("</body>\n")
-    buffer.insert(indexEndBody, "</div>\n")
+    for i in range(3):
+        buffer.insert(indexEndBody, "</div>\n")
     del indexEndBody
+
 
 for line in buffer:
     if line.find("</head>") != -1 or line.find("</div>") != -1:
