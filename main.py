@@ -119,11 +119,17 @@ if doHtmlTagChanges:
     buffer.insert(h1location, "</div>\n")
     buffer.insert(h1location, "</div>\n")
 
-    h2location = buffer.index('<h2 class="toc-heading">' + h1contentRaw + "</h2>\n")
-    buffer[h2location] = (
-        '<h2 class="toc-heading title heading">' + h1contentRaw + "</h2>\n"
-    )
-    buffer.pop(h2location - 2)
+    try:
+        h2location = buffer.index('<h2 class="toc-heading">' + h1contentRaw + "</h2>\n")
+        buffer[h2location] = (
+            '<h2 class="toc-heading title heading">' + h1contentRaw + "</h2>\n"
+        )
+    except:
+        h2location = buffer.index('<h2 class="heading">Chapter 1</h2>\n')
+        # chapterNo = 1
+        # while chapterNo > 0:
+        #     print('f')
+    buffer.pop(h2location - 3)
 
 
 for line in buffer:
