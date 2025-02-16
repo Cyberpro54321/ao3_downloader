@@ -73,6 +73,10 @@ buffer = []
 for i in input:
     buffer.append(i.strip() + "\n")
 
+for i in range(len(buffer) - 1, 0, -1):
+    if buffer[i] == "\n":
+        buffer.pop(i)
+
 if stripStyleTag:
     for i in range(
         buffer.index("</style>\n"), buffer.index('<style type="text/css">\n') - 1, -1
