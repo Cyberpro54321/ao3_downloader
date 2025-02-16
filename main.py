@@ -89,15 +89,19 @@ if insertStylesheets:
 if doHtmlTagChanges:
     indexPreface = buffer.index('<div id="preface">\n')
     buffer.pop(indexPreface)
-    buffer.insert(indexPreface, '<div id="outer" class="wrapper">\n')
-    buffer.insert(indexPreface, '<div id="inner" class="wrapper">\n')
-    buffer.insert(indexPreface, '<div id="main" class="works-show-region">\n')
     buffer.insert(indexPreface, '<div class="wrapper">\n')
+    buffer.insert(indexPreface, '<div id="main" class="works-show-region">\n')
+    buffer.insert(indexPreface, '<div id="inner" class="wrapper">\n')
+    buffer.insert(indexPreface, '<div id="outer" class="wrapper">\n')
     del indexPreface
     indexEndBody = buffer.index("</body>\n")
     for i in range(3):
         buffer.insert(indexEndBody, "</div>\n")
     del indexEndBody
+    buffer[buffer.index('<div id="afterword">\n')] = (
+        '<div class="afterword preface group">\n'
+    )
+    buffer[buffer.index('<dl class="tags">\n')] = '<dl class="tags work meta group">\n'
 
 
 for line in buffer:
