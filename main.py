@@ -119,6 +119,12 @@ if doHtmlTagChanges:
     buffer.insert(h1location, "</div>\n")
     buffer.insert(h1location, "</div>\n")
 
+    h2location = buffer.index('<h2 class="toc-heading">' + h1contentRaw + "</h2>\n")
+    buffer[h2location] = (
+        '<h2 class="toc-heading title heading">' + h1contentRaw + "</h2>\n"
+    )
+    buffer.pop(h2location - 2)
+
 
 for line in buffer:
     if line.find("</head>") != -1 or line.find("</div>") != -1:
