@@ -29,6 +29,7 @@ def indent(level):
 # variables
 stripStyleTag = True
 insertStylesheets = True
+doHtmlTagChanges = True
 stylesheets = (
     Stylesheet("01-core", "ao3css", "screen"),
     Stylesheet("02-elements", "ao3css", "screen"),
@@ -85,7 +86,7 @@ if insertStylesheets:
         headEndIndex += 1
     del headEndIndex
 
-if True:
+if doHtmlTagChanges:
     indexPreface = buffer.index('<div id="preface">\n')
     buffer.pop(indexPreface)
     buffer.insert(indexPreface, '<div id="outer" class="wrapper">\n')
