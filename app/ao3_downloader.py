@@ -36,7 +36,7 @@ def sendMessage(encodedMessage):
 
 while True:
     receivedMessage = getMessage()
-    # sendMessage(encodeMessage(receivedMessage))
+    sendMessage(encodeMessage(receivedMessage))
     file = open("/home/no1/Documents/AO3_Downloader/scripts/log.log", "w")
     file.write("receivedMessage is: " + receivedMessage + "\n")
     file.write("receivedMessage is type: " + str(type(receivedMessage)) + "\n")
@@ -49,4 +49,8 @@ while True:
     file.write("test.css is: " + css + "\n")
     file.close()
     # sendMessage(encodeMessage(name))
-    sendMessage(encodeMessage(css))
+    # sendMessage(encodeMessage(css))
+    file2 = open("/home/no1/Documents/AO3_Downloader/Workskins/" + name + ".css", "w")
+    for i in test["css"]:
+        file2.write(i)
+    file2.close()

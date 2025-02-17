@@ -49,7 +49,9 @@ browser.browserAction.onClicked.addListener(() => {
 // background-script.js
 function handleMessage(request, sender, sendResponse) {
   console.log(`A content script sent a message: ${request.name}`);
+  sendObject.name = request.name;
   console.log(`A content script sent a message: ${request.css}`);
+  sendObject.css = request.css;
   sendResponse({ response: "Response from background script" });
 }
 
