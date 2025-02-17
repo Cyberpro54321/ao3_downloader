@@ -1,3 +1,6 @@
+
+let sendObject = {"name":"","css":""};
+
 /*
 On startup, connect to the "ping_pong" app.
 */
@@ -8,9 +11,6 @@ Listen for messages from the app and log them to the console.
 */
 port.onMessage.addListener((response) => {
   console.log("Received: " + response);
-  if (response ) {
-    
-  }
 });
 
 /*
@@ -33,5 +33,6 @@ When the extension's action icon is clicked, send the app a message.
 */
 browser.browserAction.onClicked.addListener(() => {
   console.log("Sending:  ping");
-  port.postMessage("ping");
+  // port.postMessage("ping");
+  browser.runtime.sendNativeMessage("ao3_downloader", sendObject)
 });
