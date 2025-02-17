@@ -37,20 +37,12 @@ def sendMessage(encodedMessage):
 while True:
     receivedMessage = getMessage()
     sendMessage(encodeMessage(receivedMessage))
-    file = open("/home/no1/Documents/AO3_Downloader/scripts/log.log", "w")
-    file.write("receivedMessage is: " + receivedMessage + "\n")
-    file.write("receivedMessage is type: " + str(type(receivedMessage)) + "\n")
-    test = json.loads(receivedMessage)
-    file.write("test is: " + str(test) + "\n")
-    file.write("test is type: " + str(type(test)) + "\n")
-    name = str(test["name"])
-    file.write("test.name is: " + name + "\n")
-    css = str(test["css"])
-    file.write("test.css is: " + css + "\n")
-    file.close()
-    # sendMessage(encodeMessage(name))
-    # sendMessage(encodeMessage(css))
-    file2 = open("/home/no1/Documents/AO3_Downloader/Workskins/" + name + ".css", "w")
-    for i in test["css"]:
-        file2.write(i)
-    file2.close()
+    parsedMessage = json.loads(receivedMessage)
+    file = open(
+        "/home/no1/Documents/AO3_Downloader/Workskins/"
+        + parsedMessage["name"]
+        + ".css",
+        "w",
+    )
+    for i in parsedMessage["css"]:
+        file.write(i)
