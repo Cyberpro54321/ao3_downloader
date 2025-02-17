@@ -14,4 +14,20 @@ if (y.length > 0) {
 for (let i = 0; i < y.length; i++) {
   console.log(y[i]);
 }
+// content-script.js
+
+function handleResponse(message) {
+  console.log(`Message from the background script: ${message.response}`);
+}
+
+function handleError(error) {
+  console.log(`Error: ${error}`);
+}
+
+const sending = browser.runtime.sendMessage({
+  name: "Greeting from the content script",
+  css: y
+});
+sending.then(handleResponse, handleError);
+
 

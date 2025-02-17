@@ -46,3 +46,12 @@ browser.browserAction.onClicked.addListener(() => {
   let sending = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
   sending.then(onResponse, onError);
 });
+// background-script.js
+function handleMessage(request, sender, sendResponse) {
+  console.log(`A content script sent a message: ${request.name}`);
+  console.log(`A content script sent a message: ${request.css}`);
+  sendResponse({ response: "Response from background script" });
+}
+
+browser.runtime.onMessage.addListener(handleMessage);
+
