@@ -36,6 +36,13 @@ function onResponse(response) {
 function onError(error) {
   console.log(`Error: ${error}`);
 }
+function onStartedDownload(id) {
+  console.log(`Started downloading: ${id}`);
+}
+
+function onFailed(error) {
+  console.log(`Download failed: ${error}`);
+}
 
 /*
 When the extension's action icon is clicked, send the app a message.
@@ -43,6 +50,17 @@ When the extension's action icon is clicked, send the app a message.
 browser.browserAction.onClicked.addListener(() => {
   console.log("Sending:  ping");
   // port.postMessage("ping");
+
+  let downloadUrl = "https://archiveofourown.org" + sendObject.download;
+
+  let downloading = browser.downloads.download({
+    url: downloadUrl,
+    // filename: "my-image-again.png",
+    // conflictAction: "uniquify",
+  });
+
+  downloading.then(onStartedDownload, onFailed);
+
   let sending = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
   sending.then(onResponse, onError);
 });
