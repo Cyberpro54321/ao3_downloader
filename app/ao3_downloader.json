@@ -1,7 +1,7 @@
 {
   "name": "ao3_downloader",
   "description": "Streamlines the process of downloading works from Archive Of Our Own, including the CSS theming ('Workskins')",
-  "path": "~/Documents/AO3_Downloader/scripts/app/ao3_downloader.py",
+  "path": "/home/no1/Documents/AO3_Downloader/scripts/app/ao3_downloader.py",
   "type": "stdio",
   "allowed_extensions": [ "ao3_downloader@example.org" ]
 }

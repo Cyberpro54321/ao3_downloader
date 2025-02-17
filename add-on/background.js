@@ -1,5 +1,5 @@
 
-let sendObject = {"name":"","css":""};
+let sendObject = {"name":"test1","css":"test2"};
 
 /*
 On startup, connect to the "ping_pong" app.
@@ -28,11 +28,21 @@ port.onDisconnect.addListener((port) => {
   }
 });
 
+
+function onResponse(response) {
+  console.log(`Received ${response}`);
+}
+
+function onError(error) {
+  console.log(`Error: ${error}`);
+}
+
 /*
 When the extension's action icon is clicked, send the app a message.
 */
 browser.browserAction.onClicked.addListener(() => {
   console.log("Sending:  ping");
   // port.postMessage("ping");
-  browser.runtime.sendNativeMessage("ao3_downloader", sendObject)
+  let sending = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
+  sending.then(onResponse, onError);
 });
