@@ -40,7 +40,8 @@ function handleError(error) {
 
 const sending = browser.runtime.sendMessage({
   name: filename,
-  css: y
+  css: y,
+  download: dlLink
 });
 sending.then(handleResponse, handleError);
 

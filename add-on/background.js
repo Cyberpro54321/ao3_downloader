@@ -1,5 +1,5 @@
 
-let sendObject = {"name":"test1","css":"test2"};
+let sendObject = {"name":"ph1","css":"ph2","download":"ph3"};
 
 /*
 On startup, connect to the "ping_pong" app.
@@ -50,8 +50,8 @@ browser.browserAction.onClicked.addListener(() => {
 function handleMessage(request, sender, sendResponse) {
   console.log(`A content script sent a message: ${request.name}`);
   sendObject.name = request.name;
-  console.log(`A content script sent a message: ${request.css}`);
   sendObject.css = request.css;
+  sendObject.download = request.download;
   sendResponse({ response: "Response from background script" });
 }
 
