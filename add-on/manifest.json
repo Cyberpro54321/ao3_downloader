@@ -24,7 +24,10 @@
     "default_title": "Download"
   },
 
-  "permissions": ["nativeMessaging"],
+  "permissions": [
+    "nativeMessaging",
+    "downloads"
+  ],
   
   "content_scripts": [
     {
