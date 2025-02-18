@@ -49,5 +49,5 @@ while True:
         for i in parsedMessage["css"]:
             file.write(i)
     if parsedMessage["notification"] == "DownloadComplete":
-        args = ["process_fic.py", parsedMessage["name"]]
-        subprocess.run()
+        args = ["./process_fic.py", "--directory", installDir, parsedMessage["name"]]
+        subprocess.run(args)
