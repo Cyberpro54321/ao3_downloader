@@ -38,7 +38,7 @@ port.onDisconnect.addListener((port) => {
 
 
 function onResponse(response) {
-  console.log(`Received ${response}`);
+  console.log(`Received message from ${response.origin}\n ${response.payload.notification}`);
 }
 
 function onError(error) {
@@ -85,10 +85,12 @@ browser.browserAction.onClicked.addListener(() => {
 });
 // background-script.js
 function handleMessage(request, sender, sendResponse) {
-  console.log(`A content script sent a message: ${request.name}`);
-  sendObject.name = request.name;
-  sendObject.css = request.css;
-  sendObject.download = request.download;
+  console.log(`A content script sent a message: ${request.payload.name}`);
+  if (request.origin == "foreground") {
+    sendObject.name = request.payload.name;
+    sendObject.css = request.payload.css;
+    sendObject.download = request.payload.download;
+  }
   sendResponse({ response: "Response from background script" });
 }
 

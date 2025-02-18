@@ -39,7 +39,11 @@ def sendMessage(encodedMessage):
 
 while True:
     receivedMessage = getMessage()
-    sendMessage(encodeMessage(receivedMessage))
+    response = {}
+    response = {
+        "origin": "ao3_downloader.py",
+        "payload": {"notification": "placeholder"},
+    }
     logfile = open("log.log", "w")
     logfile.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
@@ -55,11 +59,16 @@ while True:
 
         for i in parsedMessage["css"]:
             file.write(i)
+        response["payload"]["notification"] = "Workscript Sucessfully Written"
         logfile.write("Finished writing " + fullFileName + "\n")
     if parsedMessage["notification"] == "DownloadComplete":
         logfile.write("background.js says the download of the HTML file is complete.\n")
         args = ["./process_fic.py", "--directory", installDir, parsedMessage["name"]]
         logfile.write("About to launch process_fic.py.\n")
         subprocess.run(args)
+        response["payload"]["notification"] = "HTML Sucessfully Parsed"
         logfile.write("process_fic.py has completed sucessfully\n")
+    logfile.write(str(response) + "\n")
+    logfile.write(str(encodeMessage(response)) + "\n")
     logfile.close()
+    sendMessage(encodeMessage(response))
