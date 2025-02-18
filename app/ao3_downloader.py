@@ -3,7 +3,9 @@
 import sys  # https://docs.python.org/3/library/sys.html
 import json  # https://docs.python.org/3/library/json.html
 import struct  # https://docs.python.org/3/library/struct.html
+import subprocess  # https://docs.python.org/3/library/subprocess.html
 
+# config
 installDir = "/home/no1/Documents/AO3_Downloader/"
 
 
@@ -46,3 +48,6 @@ while True:
         )
         for i in parsedMessage["css"]:
             file.write(i)
+    if parsedMessage["notification"] == "DownloadComplete":
+        args = ["process_fic.py", parsedMessage["name"]]
+        subprocess.run()

@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "fileName", help="Targeted Filename (without extension)", metavar="<filename>"
 )
+parser.add_argument("-d", "--directory", help="Install Directory")
 args = parser.parse_args()
 
 
@@ -67,8 +68,8 @@ stylesheets = (
 indentLevel = 0
 
 # code
-input = open("../Raws/" + args.fileName + ".html", "r")
-output = open("../Complete/" + args.fileName + ".html", "w")
+input = open(args.directory + "Raws/" + args.fileName + ".html", "r")
+output = open(args.directory + "Complete/" + args.fileName + ".html", "w")
 buffer = []
 for i in input:
     buffer.append(i.strip() + "\n")
@@ -110,7 +111,7 @@ if doHtmlTagChanges:
         place = buffer[i].find("<h1")
         if place != -1:
             h1location = i
-    h1content = buffer[h1location][buffer[h1location].find(">") :]
+    h1content = buffer[h1location][buffer[h1location].find(">"):]
     buffer[h1location] = '<h1 class="title heading"' + h1content
     h1contentRaw = h1content[1:-6]
     print(h1contentRaw)
