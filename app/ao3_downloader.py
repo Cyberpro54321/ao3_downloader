@@ -6,7 +6,7 @@ import struct  # https://docs.python.org/3/library/struct.html
 import subprocess  # https://docs.python.org/3/library/subprocess.html
 
 # config
-installDir = "/home/no1/Documents/AO3_Downloader/"
+installDir = ""
 
 
 def getMessage():  # Read a message from stdin and decode it.
@@ -40,7 +40,11 @@ def sendMessage(encodedMessage):
 while True:
     receivedMessage = getMessage()
     sendMessage(encodeMessage(receivedMessage))
+    # logfile = open("log.log", "w")
+    # logfile.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
+    installDir = parsedMessage["installDir"]
+    # logfile.write("installDir is " + installDir + "\n")
     if parsedMessage["notification"] == "CSS":
         file = open(
             installDir + "Workskins/" + parsedMessage["name"] + ".css",
@@ -51,3 +55,4 @@ while True:
     if parsedMessage["notification"] == "DownloadComplete":
         args = ["./process_fic.py", "--directory", installDir, parsedMessage["name"]]
         subprocess.run(args)
+    # logfile.close()

@@ -26,7 +26,8 @@
 
   "permissions": [
     "nativeMessaging",
-    "downloads"
+    "downloads",
+    "storage"
   ],
   
   "content_scripts": [
@@ -34,6 +35,10 @@
       "matches": ["*://archiveofourown.org/works/*"],
       "js": ["foreground.js"]
     }
-  ]
+  ],
 
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  }
 }

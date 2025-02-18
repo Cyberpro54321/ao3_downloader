@@ -1,11 +1,17 @@
 
-let sendObject = {"name":"ph1","css":"ph2","download":"ph3"};
+let sendObject = {"name":"ph1","css":"ph2","download":"ph3","notification":"ph4","installDir":"ph5"};
 
 /*
 On startup, connect to the "ping_pong" app.
 */
 let port = browser.runtime.connectNative("ao3_downloader");
 
+async function restoreOptions() {
+  let res = await browser.storage.local.get('installDir');
+  sendObject.installDir = res.installDir;
+}
+
+document.addEventListener('DOMContentLoaded', restoreOptions);
 /*
 Listen for messages from the app and log them to the console.
 */
