@@ -44,6 +44,15 @@ function onFailed(error) {
   console.log(`Download failed: ${error}`);
 }
 
+function handleChanged(delta) {
+  if (delta.state && delta.state.current === "complete") {
+    console.log(`Download ${delta.id} has completed.`);
+    sendObject.notification = "DownloadComplete";
+    let sendingDLComplete = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
+    sendingDLComplete.then(onResponse, onError);
+  }
+}
+
 /*
 When the extension's action icon is clicked, send the app a message.
 */
@@ -60,6 +69,7 @@ browser.browserAction.onClicked.addListener(() => {
   });
 
   downloading.then(onStartedDownload, onFailed);
+  browser.downloads.onChanged.addListener(handleChanged);
 
   sendObject.notification = "CSS";
   let sendingCSS = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
