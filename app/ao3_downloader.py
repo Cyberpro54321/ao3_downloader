@@ -38,11 +38,12 @@ while True:
     receivedMessage = getMessage()
     sendMessage(encodeMessage(receivedMessage))
     parsedMessage = json.loads(receivedMessage)
-    file = open(
-        "/home/no1/Documents/AO3_Downloader/Workskins/"
-        + parsedMessage["name"]
-        + ".css",
-        "w",
-    )
-    for i in parsedMessage["css"]:
-        file.write(i)
+    if parsedMessage["notification"] == "CSS":
+        file = open(
+            "/home/no1/Documents/AO3_Downloader/Workskins/"
+            + parsedMessage["name"]
+            + ".css",
+            "w",
+        )
+        for i in parsedMessage["css"]:
+            file.write(i)

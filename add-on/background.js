@@ -61,8 +61,9 @@ browser.browserAction.onClicked.addListener(() => {
 
   downloading.then(onStartedDownload, onFailed);
 
-  let sending = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
-  sending.then(onResponse, onError);
+  sendObject.notification = "CSS";
+  let sendingCSS = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
+  sendingCSS.then(onResponse, onError);
 });
 // background-script.js
 function handleMessage(request, sender, sendResponse) {
