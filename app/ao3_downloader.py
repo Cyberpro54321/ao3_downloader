@@ -40,19 +40,26 @@ def sendMessage(encodedMessage):
 while True:
     receivedMessage = getMessage()
     sendMessage(encodeMessage(receivedMessage))
-    # logfile = open("log.log", "w")
-    # logfile.write("Message Received\n")
+    logfile = open("log.log", "w")
+    logfile.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
     installDir = parsedMessage["installDir"]
-    # logfile.write("installDir is " + installDir + "\n")
+    logfile.write("installDir is " + installDir + "\n")
     if parsedMessage["notification"] == "CSS":
+        fullFileName = installDir + "Workskins/" + parsedMessage["name"] + ".css"
         file = open(
-            installDir + "Workskins/" + parsedMessage["name"] + ".css",
+            fullFileName,
             "w",
         )
+        logfile.write("Sucessfully opened " + fullFileName + "\n")
+
         for i in parsedMessage["css"]:
             file.write(i)
+        logfile.write("Finished writing " + fullFileName + "\n")
     if parsedMessage["notification"] == "DownloadComplete":
+        logfile.write("background.js says the download of the HTML file is complete.\n")
         args = ["./process_fic.py", "--directory", installDir, parsedMessage["name"]]
+        logfile.write("About to launch process_fic.py.\n")
         subprocess.run(args)
-    # logfile.close()
+        logfile.write("process_fic.py has completed sucessfully\n")
+    logfile.close()

@@ -9,6 +9,8 @@ let port = browser.runtime.connectNative("ao3_downloader");
 async function restoreOptions() {
   let res = await browser.storage.local.get('installDir');
   sendObject.installDir = res.installDir;
+  console.log(res.installDir);
+  console.log(sendObject.installDir);
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
