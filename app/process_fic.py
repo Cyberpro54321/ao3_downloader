@@ -126,8 +126,8 @@ if doHtmlTagChanges:
             '<h2 class="toc-heading title heading">' + h1contentRaw + "</h2>\n"
         )
     except:
-        h2location = buffer.index('<h2 class="heading">Chapter 1</h2>\n')
-    buffer.pop(h2location - 3)
+        h2location = buffer.index('<div id="chapters" class="userstuff">\n')
+    buffer.pop(h2location - 2)
 
 
 for line in buffer:
