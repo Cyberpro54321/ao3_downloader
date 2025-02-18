@@ -4,9 +4,10 @@ import sys  # https://docs.python.org/3/library/sys.html
 import json  # https://docs.python.org/3/library/json.html
 import struct  # https://docs.python.org/3/library/struct.html
 
+installDir = "/home/no1/Documents/AO3_Downloader/"
 
-# Read a message from stdin and decode it.
-def getMessage():
+
+def getMessage():  # Read a message from stdin and decode it.
     rawLength = sys.stdin.buffer.read(4)
     if len(rawLength) == 0:
         sys.exit(0)
@@ -40,9 +41,7 @@ while True:
     parsedMessage = json.loads(receivedMessage)
     if parsedMessage["notification"] == "CSS":
         file = open(
-            "/home/no1/Documents/AO3_Downloader/Workskins/"
-            + parsedMessage["name"]
-            + ".css",
+            installDir + "Workskins/" + parsedMessage["name"] + ".css",
             "w",
         )
         for i in parsedMessage["css"]:
