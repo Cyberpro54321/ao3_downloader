@@ -7,6 +7,7 @@ import subprocess  # https://docs.python.org/3/library/subprocess.html
 
 # config
 installDir = ""
+logfile = "ao3dl.log"
 
 
 def getMessage():  # Read a message from stdin and decode it.
@@ -44,31 +45,31 @@ while True:
         "origin": "ao3_downloader.py",
         "payload": {"notification": "placeholder"},
     }
-    logfile = open("log.log", "w")
-    logfile.write("Message Received\n")
+    log = open(logfile, "w")
+    log.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
     installDir = parsedMessage["installDir"]
-    logfile.write("installDir is " + installDir + "\n")
+    log.write("installDir is " + installDir + "\n")
     if parsedMessage["notification"] == "CSS":
         fullFileName = installDir + "Workskins/" + parsedMessage["name"] + ".css"
         file = open(
             fullFileName,
             "w",
         )
-        logfile.write("Sucessfully opened " + fullFileName + "\n")
+        log.write("Sucessfully opened " + fullFileName + "\n")
 
         for i in parsedMessage["css"]:
             file.write(i)
         response["payload"]["notification"] = "Workscript Sucessfully Written"
-        logfile.write("Finished writing " + fullFileName + "\n")
+        log.write("Finished writing " + fullFileName + "\n")
     if parsedMessage["notification"] == "DownloadComplete":
-        logfile.write("background.js says the download of the HTML file is complete.\n")
+        log.write("background.js says the download of the HTML file is complete.\n")
         args = ["./process_fic.py", "--directory", installDir, parsedMessage["name"]]
-        logfile.write("About to launch process_fic.py.\n")
+        log.write("About to launch process_fic.py.\n")
         subprocess.run(args)
         response["payload"]["notification"] = "HTML Sucessfully Parsed"
-        logfile.write("process_fic.py has completed sucessfully\n")
-    logfile.write(str(response) + "\n")
-    logfile.write(str(encodeMessage(response)) + "\n")
-    logfile.close()
+        log.write("process_fic.py has completed sucessfully\n")
+    log.write(str(response) + "\n")
+    log.write(str(encodeMessage(response)) + "\n")
+    log.close()
     sendMessage(encodeMessage(response))
