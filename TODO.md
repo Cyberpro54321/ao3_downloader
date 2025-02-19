@@ -8,6 +8,7 @@
 
 ## Features
 ### Minor Formatting Fixes
+- [ ] Use processed form of full chapter name rather than AO3-shortened version (Causes problems for works with similar long names, see FADIAMT)
 - [ ] Center chapter titles on multi-chapter works
 - [ ] Remove redundant second title on single-chapter works
 - [ ] Underline for Summary & Notes section headers
