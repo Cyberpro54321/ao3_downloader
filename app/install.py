@@ -154,3 +154,48 @@ for i in fileNMManifestLocal:
 fileNMManifestLocal.close()
 fileNMManifestTarget.close()
 print("Files successfuly written and closed.")
+
+promptDownloadDir = (
+    "\n"
+    + "\n"
+    + "Where should the files downloaded using this program be saved?"
+    + "\n"
+    + "\n"
+    + "The directory you select here will have 4 more sub-directories created in it, named 'Raws', 'Workskins', 'ao3css', and 'Complete'."
+    + "\n"
+    + "The fully-formatted versions of the downloaded works will be stored in the 'Complete' folder, so if you type "
+    + "\n"
+    + "'~/Documents/AO3' "
+    + "\n"
+    + " here, your downloaded works can be found at"
+    + "\n"
+    + "'~/Documents/AO3/Complete/<story name>.html'."
+    + "\n"
+)
+dlDir = fixSlash(os.path.abspath(os.path.expanduser(input(promptDownloadDir))))
+if not os.path.exists(dlDir):
+    print(dlDir + " doesn't exist. Create it?")
+    if bool(getYesNo()):
+        try:
+            os.makedirs(dlDir)
+        except PermissionError:
+            print("You don't have the permissions needed to create " + dlDir)
+while not os.access(dlDir, os.W_OK):
+    print(dlDir + " isn't writable. Maybe you don't have the right permissions?")
+    dlDir = fixSlash(os.path.abspath(os.path.expanduser(input())))
+    if not os.path.exists(dlDir):
+        print(dlDir + " doesn't exist. Create it?")
+        if bool(getYesNo()):
+            try:
+                os.makedirs(dlDir)
+            except PermissionError:
+                print("You don't have the permissions needed to create " + dlDir)
+if os.access(dlDir, os.W_OK):
+    os.mkdir(dlDir + "Raws")
+    os.mkdir(dlDir + "Workskins")
+    os.mkdir(dlDir + "Complete")
+    os.mkdir(dlDir + "ao3css")
+
+print(
+    "The parts of the installation this script can handle is now complete. Please see step 4 of README.md's 'Installation' section."
+)
