@@ -21,7 +21,7 @@
 
   "browser_action": {
     "default_icon": "icons/message.svg",
-    "default_title": "Download"
+    "default_title": "Download last visited AO3 Work"
   },
 
   "permissions": [
@@ -32,7 +32,7 @@
   
   "content_scripts": [
     {
-      "matches": ["*://archiveofourown.org/works/*"],
+      "matches": ["https://archiveofourown.org/works/*"],
       "js": ["foreground.js"]
     }
   ],
