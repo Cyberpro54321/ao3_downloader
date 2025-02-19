@@ -4,6 +4,7 @@ import sys  # https://docs.python.org/3/library/sys.html
 import json  # https://docs.python.org/3/library/json.html
 import struct  # https://docs.python.org/3/library/struct.html
 import subprocess  # https://docs.python.org/3/library/subprocess.html
+import os.path  # https://docs.python.org/3/library/os.path.html
 
 # config
 installDir = ""
@@ -48,7 +49,7 @@ while True:
     log = open(logfile, "w")
     log.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
-    installDir = parsedMessage["payload"]["installDir"]
+    installDir = os.path.expanduser(parsedMessage["payload"]["installDir"])
     if installDir[-1:] != "/":
         installDir = installDir + "/"
     log.write("installDir is " + installDir + "\n")
