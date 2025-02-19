@@ -42,6 +42,7 @@ dry_run = True
 scriptNameInstall = "install.py"
 scriptNameWorkskin = "ao3_downloader.py"
 scriptNameHTML = "process_fic.py"
+jsonNMManifest = "ao3_downloader.json"
 
 if os.path.exists(os.getcwd() + "/" + scriptNameInstall):
     currentScriptDir = os.getcwd() + "/"
@@ -116,5 +117,30 @@ if doChangeScriptDir:
         os.rename(currentScriptDir + scriptNameInstall, scriptDir + scriptNameInstall)
         os.rename(currentScriptDir + scriptNameWorkskin, scriptDir + scriptNameWorkskin)
         os.rename(currentScriptDir + scriptNameHTML, scriptDir + scriptNameHTML)
+        os.rename(
+            currentScriptDir + jsonNMManifest,
+            scriptDir + jsonNMManifest,
+        )
 else:
     scriptDir = currentScriptDir
+
+jsonNMManifestDest = "~/.mozilla/native-messaging-hosts/"
+print("Writing copy of " + jsonNMManifest + " to " + jsonNMManifestDest)
+if not os.path.exists(jsonNMManifestDest):
+    os.makedirs(jsonNMManifestDest)
+fileNMManifestLocal = open(scriptDir + jsonNMManifest, "r")
+fileNMManifestTarget = open(
+    os.path.abspath(os.path.expanduser(jsonNMManifestDest + jsonNMManifest)),
+    "w",
+)
+print("Files successfuly opened.")
+for i in fileNMManifestLocal:
+    if i.find('"path":') == -1:
+        fileNMManifestTarget.write(i)
+    else:
+        fileNMManifestTarget.write(
+            '  "path": "' + scriptDir + scriptNameWorkskin + '",'
+        )
+fileNMManifestLocal.close()
+fileNMManifestTarget.close()
+print("Files successfuly written and closed.")
