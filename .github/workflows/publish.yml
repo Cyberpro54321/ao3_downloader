@@ -15,7 +15,7 @@ jobs:
         uses: kewisch/action-web-ext@v1
         with:
           cmd: lint
-          source: src
+          source: add-on
           channel: listed
 
       - name: "web-ext build"
@@ -23,7 +23,7 @@ jobs:
         uses: kewisch/action-web-ext@v1
         with:
           cmd: build
-          source: src
+          source: add-on
 
       - name: "Collect sources"
         run: git archive --format=zip --output=sources.zip ${{ github.ref }}
