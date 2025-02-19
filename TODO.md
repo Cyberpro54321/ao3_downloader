@@ -3,6 +3,7 @@
 - [X] Setup Github Actions to sign extension without installing npm locally
 - [ ] Get / Make better icon
 - [ ] Check how workskin detector interacts with site skins
+- [ ] Make extension UUID not end in example.org
 
 ## Features
 ### Minor Formatting Fixes
