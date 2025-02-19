@@ -37,6 +37,13 @@ def getYesNo(prompt="Yes or No? "):
     )
 
 
+def fixSlash(input: str):
+    if input[-1:] != "/":
+        return input + "/"
+    else:
+        return input
+
+
 # variables
 dry_run = True
 scriptNameInstall = "install.py"
@@ -124,13 +131,16 @@ if doChangeScriptDir:
 else:
     scriptDir = currentScriptDir
 
-jsonNMManifestDest = "~/.mozilla/native-messaging-hosts/"  # https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests#manifest_location
+jsonNMManifestDest = fixSlash(
+    os.path.abspath(os.path.expanduser("~/.mozilla/native-messaging-hosts/"))
+)  # https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests#manifest_location
+
 print("Writing copy of " + jsonNMManifest + " to " + jsonNMManifestDest)
 if not os.path.exists(jsonNMManifestDest):
     os.makedirs(jsonNMManifestDest)
 fileNMManifestLocal = open(scriptDir + jsonNMManifest, "r")
 fileNMManifestTarget = open(
-    os.path.abspath(os.path.expanduser(jsonNMManifestDest + jsonNMManifest)),
+    jsonNMManifestDest + jsonNMManifest,
     "w",
 )
 print("Files successfuly opened.")
