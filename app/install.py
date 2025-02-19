@@ -124,7 +124,7 @@ if doChangeScriptDir:
 else:
     scriptDir = currentScriptDir
 
-jsonNMManifestDest = "~/.mozilla/native-messaging-hosts/"
+jsonNMManifestDest = "~/.mozilla/native-messaging-hosts/"  # https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests#manifest_location
 print("Writing copy of " + jsonNMManifest + " to " + jsonNMManifestDest)
 if not os.path.exists(jsonNMManifestDest):
     os.makedirs(jsonNMManifestDest)
