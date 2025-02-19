@@ -14,7 +14,7 @@ for (let i = 0; i < y.length; i++) {
   console.log(y[i]);
 }
 
-var name1 = document.querySelector("html body div.outer div.inner div.main ul.work.navigation.actions li.download ul");
+var name1 = document.querySelector("html body div#outer div#inner div#main ul.work.navigation.actions li.download ul");
 var name2 = name1.lastElementChild.firstChild;
 for (let i = 0; i < name1.children.length; i++) {
   if (name1.children[i].innerText == "HTML") {
