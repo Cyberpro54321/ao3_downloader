@@ -44,3 +44,4 @@ Most of this project's core files were created by copying and modifying those fo
 - [options.html](add-on/options.html): Copied from [MDN Web documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Options_pages)
 - [options.js](add-on/options.js): Original form copied from [favourite-colour/options.js](https://github.com/mdn/webextensions-examples/blob/main/favourite-colour/options.js), then lightly modified.
 - [ao3_downloader.json](app/ao3_downloader.json): Original form copied from [native-messaging/app/ping_pong.json](https://github.com/mdn/webextensions-examples/blob/main/native-messaging/app/ping_pong.json), then lightly modified
+- [install.py](app/install.py): Original
