@@ -42,29 +42,39 @@ while True:
     receivedMessage = getMessage()
     response = {}
     response = {
-        "origin": "ao3_downloader.py",
+        "type": "notification",
         "payload": {"notification": "placeholder"},
     }
     log = open(logfile, "w")
     log.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
-    installDir = parsedMessage["installDir"]
+    installDir = parsedMessage["payload"]["installDir"]
     log.write("installDir is " + installDir + "\n")
-    if parsedMessage["notification"] == "CSS":
-        fullFileName = installDir + "Workskins/" + parsedMessage["name"] + ".css"
+    if parsedMessage["type"] == "workskinInfo":
+        fullFileName = (
+            installDir + "Workskins/" + parsedMessage["payload"]["name"] + ".css"
+        )
         file = open(
             fullFileName,
             "w",
         )
         log.write("Sucessfully opened " + fullFileName + "\n")
 
-        for i in parsedMessage["css"]:
+        for i in parsedMessage["payload"]["css"]:
             file.write(i)
         response["payload"]["notification"] = "Workscript Sucessfully Written"
         log.write("Finished writing " + fullFileName + "\n")
-    if parsedMessage["notification"] == "DownloadComplete":
+    if (
+        parsedMessage["type"] == "notification"
+        and parsedMessage["payload"]["notification"] == "HTML Download Complete"
+    ):
         log.write("background.js says the download of the HTML file is complete.\n")
-        args = ["./process_fic.py", "--directory", installDir, parsedMessage["name"]]
+        args = [
+            "./process_fic.py",
+            "--directory",
+            installDir,
+            parsedMessage["payload"]["name"],
+        ]
         log.write("About to launch process_fic.py.\n")
         subprocess.run(args)
         response["payload"]["notification"] = "HTML Sucessfully Parsed"

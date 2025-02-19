@@ -38,7 +38,7 @@ function handleError(error) {
 }
 
 const sending = browser.runtime.sendMessage({
-  origin: "foreground",
+  type: "foreground",
   payload: {
     name: filename,
     css: y,

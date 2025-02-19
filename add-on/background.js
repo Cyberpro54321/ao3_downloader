@@ -1,5 +1,9 @@
 
-let sendObject = {"name":"ph1","css":"ph2","download":"ph3","notification":"ph4","installDir":"ph5"};
+let defaultName = "placeholder1";
+let workName = defaultName;
+let workCSS = [];
+let downloadLink = "";
+let installDir = "";
 
 /*
 On startup, connect to the "ping_pong" app.
@@ -8,9 +12,8 @@ let port = browser.runtime.connectNative("ao3_downloader");
 
 async function restoreOptions() {
   let res = await browser.storage.local.get('installDir');
-  sendObject.installDir = res.installDir;
+  installDir = res.installDir;
   console.log(res.installDir);
-  console.log(sendObject.installDir);
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
@@ -38,7 +41,7 @@ port.onDisconnect.addListener((port) => {
 
 
 function onResponse(response) {
-  console.log(`Received message from ${response.origin}\n ${response.payload.notification}`);
+  console.log(`Received message: ${response.payload.notification}`);
 }
 
 function onError(error) {
@@ -55,8 +58,14 @@ function onFailed(error) {
 function handleChanged(delta) {
   if (delta.state && delta.state.current === "complete") {
     console.log(`Download ${delta.id} has completed.`);
-    sendObject.notification = "DownloadComplete";
-    let sendingDLComplete = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
+    let sendingDLComplete = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify({
+      "type": "notification",
+      "payload": {
+        "notification": "HTML Download Complete",
+        "installDir": installDir,
+        "name": workName
+      }
+    }));
     sendingDLComplete.then(onResponse, onError);
   }
 }
@@ -65,31 +74,36 @@ function handleChanged(delta) {
 When the extension's action icon is clicked, send the app a message.
 */
 browser.browserAction.onClicked.addListener(() => {
-  console.log("Sending:  ping");
-  // port.postMessage("ping");
+  if (workName != defaultName) {
+    let downloadUrl = "https://archiveofourown.org" + downloadLink;
+    let downloading = browser.downloads.download({
+      url: downloadUrl,
+      // filename: "my-image-again.png",
+      // conflictAction: "uniquify",
+    });
+    downloading.then(onStartedDownload, onFailed);
+    browser.downloads.onChanged.addListener(handleChanged);
 
-  let downloadUrl = "https://archiveofourown.org" + sendObject.download;
-
-  let downloading = browser.downloads.download({
-    url: downloadUrl,
-    // filename: "my-image-again.png",
-    // conflictAction: "uniquify",
-  });
-
-  downloading.then(onStartedDownload, onFailed);
-  browser.downloads.onChanged.addListener(handleChanged);
-
-  sendObject.notification = "CSS";
-  let sendingCSS = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify(sendObject));
-  sendingCSS.then(onResponse, onError);
+    let sendingCSS = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify({
+      "type": "workskinInfo",
+      "payload": {
+        "name": workName,
+        "css": workCSS,
+        "installDir": installDir
+      }
+    }));
+    sendingCSS.then(onResponse, onError);
+  } else {
+    console.log("Button was clicked without foreground.js having sucessfully sent a message");
+  }
 });
 // background-script.js
 function handleMessage(request, sender, sendResponse) {
   console.log(`A content script sent a message: ${request.payload.name}`);
-  if (request.origin == "foreground") {
-    sendObject.name = request.payload.name;
-    sendObject.css = request.payload.css;
-    sendObject.download = request.payload.download;
+  if (request.type == "foreground") {
+    workName = request.payload.name;
+    workCSS = request.payload.css;
+    downloadLink = request.payload.download;
   }
   sendResponse({ response: "Response from background script" });
 }
