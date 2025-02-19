@@ -4,6 +4,7 @@
 - [ ] Get / Make better icon
 - [ ] Check how workskin detector interacts with site skins
 - [ ] Make extension UUID not end in example.org
+- [ ] Support for 7-sheet ao3css format
 
 ## Features
 ### Minor Formatting Fixes
