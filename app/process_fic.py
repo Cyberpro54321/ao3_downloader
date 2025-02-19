@@ -129,7 +129,7 @@ if doHtmlTagChanges:
         h2location = buffer.index('<div id="chapters" class="userstuff">\n')
     buffer.pop(h2location - 2)
 
-buffer.append("<!-- This file written by AO3 Downloader version 1.0.3 -->")
+buffer.append("<!-- This file written by AO3 Downloader version 1.0.3.1 -->")
 
 
 for line in buffer:
