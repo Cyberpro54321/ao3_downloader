@@ -11,7 +11,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "ao3_downloader@example.org",
-      "strict_min_version": "50.0"
+      "strict_min_version": "79.0"
     }
   },
 
