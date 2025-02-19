@@ -1,6 +1,5 @@
 {
-
-  "description": "Tool to streamline the process of downloading works from Archive Of Our Own with their original CSS theming (including workskins)",
+  "description": "Part of a tool to streamline the process of downloading works from Archive Of Our Own with their original CSS theming (including workskins)",
   "manifest_version": 2,
   "name": "ao3_downloader",
   "version": "1.0.1",

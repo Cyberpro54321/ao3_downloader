@@ -1,0 +1,22 @@
+{
+  "default_locale": "en-US",
+  "description": {
+    "en-US": "One half of a tool designed to streamline the process of downloading works from ArchiveOfOurOwn while preserving the original theming. Require companion app to do anything of any value, available at github page."
+  },
+  "homepage": {
+    "en-US": "https://github.com/Cyberpro54321/ao3_downloader"
+  },
+  "name": {
+    "en-US": "AO3 Downloader"
+  },
+  "requires_payment": false,
+  "summary": {
+    "en-US": "Part of a tool to streamline the process of downloading works from Archive Of Our Own with their original CSS theming (including workskins)"
+  },
+  "support_email": {
+    "en-US": "rebycorp321@gmail.com"
+  },
+  "version": {
+    "license": "MPL-2.0"
+  }
+}
