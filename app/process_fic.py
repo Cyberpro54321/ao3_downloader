@@ -111,7 +111,7 @@ if doHtmlTagChanges:
         place = buffer[i].find("<h1")
         if place != -1:
             h1location = i
-    h1content = buffer[h1location][buffer[h1location].find(">") :]
+    h1content = buffer[h1location][buffer[h1location].find(">"):]
     buffer[h1location] = '<h1 class="title heading"' + h1content
     h1contentRaw = h1content[1:-6]
     print(h1contentRaw)
@@ -129,7 +129,7 @@ if doHtmlTagChanges:
         h2location = buffer.index('<div id="chapters" class="userstuff">\n')
     buffer.pop(h2location - 2)
 
-buffer.append("<!-- This file written by AO3 Downloader version 1.0.2 -->")
+buffer.append("<!-- This file written by AO3 Downloader version 1.0.3 -->")
 
 
 for line in buffer:
