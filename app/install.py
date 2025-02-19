@@ -96,9 +96,9 @@ if doChangeScriptDir:
     promptChangeScriptDir = (
         "What folder / directory should the script files be moved to?\n"
     )
-    scriptDir = os.path.abspath(os.path.expanduser(input(promptChangeScriptDir)))
-    if scriptDir[-1:] != "/":
-        scriptDir = scriptDir + "/"
+    scriptDir = fixSlash(
+        os.path.abspath(os.path.expanduser(input(promptChangeScriptDir)))
+    )
     if not os.path.exists(scriptDir):
         print(scriptDir + " doesn't exist. Create it?")
         if bool(getYesNo()):
