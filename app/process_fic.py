@@ -129,6 +129,8 @@ if doHtmlTagChanges:
         h2location = buffer.index('<div id="chapters" class="userstuff">\n')
     buffer.pop(h2location - 2)
 
+buffer.append("<!-- This file written by AO3 Downloader version 1.0.1 -->")
+
 
 for line in buffer:
     if line.find("</head>") != -1 or line.find("</div>") != -1:
