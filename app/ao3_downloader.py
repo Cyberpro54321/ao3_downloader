@@ -49,6 +49,8 @@ while True:
     log.write("Message Received\n")
     parsedMessage = json.loads(receivedMessage)
     installDir = parsedMessage["payload"]["installDir"]
+    if installDir[-1:] != "/":
+        installDir = installDir + "/"
     log.write("installDir is " + installDir + "\n")
     if parsedMessage["type"] == "workskinInfo":
         fullFileName = (
