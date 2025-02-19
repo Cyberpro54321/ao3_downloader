@@ -19,3 +19,4 @@
 - [ ] Table Of Contents?
 - [ ] Chapter-By-Chapter Mode?
 - [ ] Comment Archives? (Probably Not)
+- [ ] Sort into folders based on series??? How to deal with works in multiple series??
