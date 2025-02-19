@@ -8,7 +8,7 @@ async function saveOptions(e) {
 
 async function restoreOptions() {
   let res = await browser.storage.local.get('installDir');
-  document.querySelector("#installDir").value = res.installDir || '/home/XXXX/Documents/AO3_Downloads';
+  document.querySelector("#installDir").value = res.installDir || '/home/XXXX/Documents/AO3_Downloader/';
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
