@@ -53,7 +53,7 @@ jobs:
           # notes, release notes, or a license.
           
           # metaDataFile: amo_metadata.json
-          approvalNotes: "Please find more information at https://github.com/kewisch/action-web-ext"
+          # approvalNotes: "Please find more information at https://github.com/kewisch/action-web-ext"
           releaseNotes: ${{ github.event.release.body }}
 
           # You can set one of the known licenses from

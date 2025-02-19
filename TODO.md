@@ -1,6 +1,6 @@
 ## Technical
 - [ ] Look more into the licensing situation
-- [ ] Setup Github Actions to sign extension without installing npm locally
+- [X] Setup Github Actions to sign extension without installing npm locally
 - [ ] Get / Make better icon
 - [ ] Check how workskin detector interacts with site skins
 
