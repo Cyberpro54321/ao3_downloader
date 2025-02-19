@@ -99,7 +99,12 @@ if doHtmlTagChanges:
     buffer.insert(indexPreface, '<div id="inner" class="wrapper">\n')
     buffer.insert(indexPreface, '<div id="outer" class="wrapper">\n')
     del indexPreface
-    indexEndBody = buffer.index("</body>\n")
+    try:
+        indexEndBody = buffer.index("</body>\n")
+    except ValueError:
+        for i in range(len(buffer)):
+            if buffer[i].find("</body>") != -1:
+                indexEndBody = i
     for i in range(3):
         buffer.insert(indexEndBody, "</div>\n")
     del indexEndBody
