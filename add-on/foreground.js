@@ -26,7 +26,7 @@ var filename = dlLink.split('/')[3].split('?')[0].slice(0, -5)
 console.log(dlLink);
 console.log(filename);
 
-var workName = document.querySelector("#workskin h2.title.heading").innerHTML;
+var workName = document.querySelector("#workskin h2.title.heading").innerText;
 
 // content-script.js
 
