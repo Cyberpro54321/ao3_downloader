@@ -1,6 +1,7 @@
 
 let defaultName = "placeholder1";
-let workName = defaultName;
+let fileName = defaultName;
+let workName = ""
 let workCSS = [];
 let downloadLink = "";
 let installDir = "";
@@ -63,7 +64,8 @@ function handleChanged(delta) {
       "payload": {
         "notification": "HTML Download Complete",
         "installDir": installDir,
-        "name": workName
+        "fileName": fileName,
+        "workName": workName
       }
     }));
     sendingDLComplete.then(onResponse, onError);
@@ -74,7 +76,7 @@ function handleChanged(delta) {
 When the extension's action icon is clicked, send the app a message.
 */
 browser.browserAction.onClicked.addListener(() => {
-  if (workName != defaultName) {
+  if (fileName != defaultName) {
     let downloadUrl = "https://archiveofourown.org" + downloadLink;
     let downloading = browser.downloads.download({
       url: downloadUrl,
@@ -87,7 +89,8 @@ browser.browserAction.onClicked.addListener(() => {
     let sendingCSS = browser.runtime.sendNativeMessage("ao3_downloader", JSON.stringify({
       "type": "workskinInfo",
       "payload": {
-        "name": workName,
+        "fileName": fileName,
+        "workName": workName,
         "css": workCSS,
         "installDir": installDir
       }
@@ -101,7 +104,8 @@ browser.browserAction.onClicked.addListener(() => {
 function handleMessage(request, sender, sendResponse) {
   console.log(`A content script sent a message: ${request.payload.name}`);
   if (request.type == "foreground") {
-    workName = request.payload.name;
+    fileName = request.payload.fileName;
+    workName = request.payload.workName;
     workCSS = request.payload.css;
     downloadLink = request.payload.download;
   }

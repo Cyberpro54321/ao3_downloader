@@ -5,6 +5,7 @@ import json  # https://docs.python.org/3/library/json.html
 import struct  # https://docs.python.org/3/library/struct.html
 import subprocess  # https://docs.python.org/3/library/subprocess.html
 import os.path  # https://docs.python.org/3/library/os.path.html
+from os import rename
 
 # config
 installDir = ""
@@ -53,9 +54,32 @@ while True:
     if installDir[-1:] != "/":
         installDir = installDir + "/"
     log.write("installDir is " + installDir + "\n")
+    log.write("Beginning sanitization of work name. Starting name is:\n")
+    log.write(parsedMessage["payload"]["workName"] + "\n")
+    workName = ""  # whitelist is a-z, A-Z, 0-9, space, comma, _, -, `, (, ), and +.
+    for i in parsedMessage["payload"]["workName"]:
+        if i.isascii() and i.isprintable():
+            workName = workName + i
+    workName.replace(" ", "_")
+    workName.replace("~", "-")
+    workName.replace('"', "`")
+    workName.replace("'", "`")
+    workName.replace(".", ",")
+    workName.replace("[", "(")
+    workName.replace("]", ")")
+    workName.replace("{", "(")
+    workName.replace("}", ")")
+    workName = workName.strip("/\\!#$%^*|;:<>?")
+    while workName.find("&") != -1 and len(workName) < (255 - 5 - 2):
+        workName.replace("&", "and", 1)
+    while workName.find("@") != -1 and len(workName) < (255 - 5 - 1):
+        workName.replace("@", "at", 1)
+    workName = workName.strip("@&")
+    log.write("Ending work name is:\n")
+    log.write(workName + "\n")
     if parsedMessage["type"] == "workskinInfo":
         fullFileName = (
-            installDir + "Workskins/" + parsedMessage["payload"]["name"] + ".css"
+            installDir + "Workskins/" + parsedMessage["payload"]["workName"] + ".css"
         )
         file = open(
             fullFileName,
@@ -71,12 +95,16 @@ while True:
         parsedMessage["type"] == "notification"
         and parsedMessage["payload"]["notification"] == "HTML Download Complete"
     ):
+        rename(
+            installDir + "Raws/" + parsedMessage["payload"]["fileName"] + ".html",
+            installDir + "Raws/" + workName + ".html",
+        )
         log.write("background.js says the download of the HTML file is complete.\n")
         args = [
             "./process_fic.py",
             "--directory",
             installDir,
-            parsedMessage["payload"]["name"],
+            workName,
         ]
         log.write("About to launch process_fic.py.\n")
         subprocess.run(args)
