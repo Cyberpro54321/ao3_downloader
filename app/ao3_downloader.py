@@ -79,19 +79,26 @@ while True:
     log.write("Ending work name is:\n")
     log.write(workName + "\n")
     if parsedMessage["type"] == "workskinInfo":
-        fullFileName = (
-            installDir + "Workskins/" + parsedMessage["payload"]["workName"] + ".css"
-        )
-        file = open(
-            fullFileName,
-            "w",
-        )
-        log.write("Sucessfully opened " + fullFileName + "\n")
+        if (
+            len(parsedMessage["payload"]["css"]) != 1
+            or parsedMessage["payload"]["css"][0] != ""
+        ):
+            fullFileName = (
+                installDir
+                + "Workskins/"
+                + parsedMessage["payload"]["workName"]
+                + ".css"
+            )
+            file = open(
+                fullFileName,
+                "w",
+            )
+            log.write("Sucessfully opened " + fullFileName + "\n")
 
-        for i in parsedMessage["payload"]["css"]:
-            file.write(i)
-        response["payload"]["notification"] = "Workscript Sucessfully Written"
-        log.write("Finished writing " + fullFileName + "\n")
+            for i in parsedMessage["payload"]["css"]:
+                file.write(i)
+            response["payload"]["notification"] = "Workscript Sucessfully Written"
+            log.write("Finished writing " + fullFileName + "\n")
     if (
         parsedMessage["type"] == "notification"
         and parsedMessage["payload"]["notification"] == "HTML Download Complete"
