@@ -2,13 +2,13 @@
 - [ ] Look more into the licensing situation
 - [X] Setup Github Actions to sign extension without installing npm locally
 - [ ] Get / Make better icon
-- [ ] Check how workskin detector interacts with site skins
+- [X] Check how workskin detector interacts with site skins - seems fine
 - [ ] Make extension UUID not end in example.org
 - [ ] Support for 7-sheet ao3css format
 
 ## Features
 ### Minor Formatting Fixes
-- [ ] Use processed form of full chapter name rather than AO3-shortened version (Causes problems for works with similar long names, see FADIAMT)
+- [X] Use processed form of full chapter name rather than AO3-shortened version (Causes problems for works with similar long names, see FADIAMT)
 - [ ] Center chapter titles on multi-chapter works
 - [ ] Remove redundant second title on single-chapter works
 - [ ] Underline for Summary & Notes section headers
