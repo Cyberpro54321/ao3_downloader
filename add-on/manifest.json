@@ -2,7 +2,7 @@
   "description": "Part of a tool to streamline the process of downloading works from Archive Of Our Own with their original CSS theming (including workskins)",
   "manifest_version": 2,
   "name": "ao3_downloader",
-  "version": "1.0.4",
+  "version": "1.0.5-alpha-0",
   "icons": {
     "48": "icons/message.svg"
   },
