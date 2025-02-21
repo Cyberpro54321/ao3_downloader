@@ -102,7 +102,7 @@ browser.browserAction.onClicked.addListener(() => {
 });
 // background-script.js
 function handleMessage(request, sender, sendResponse) {
-  console.log(`A content script sent a message: ${request.payload.name}`);
+  console.log(`A content script sent a message: ${request.payload.fileName}`);
   if (request.type == "foreground") {
     fileName = request.payload.fileName;
     workName = request.payload.workName;
