@@ -60,6 +60,7 @@ while True:
     for i in parsedMessage["payload"]["workName"]:
         if i.isascii() and i.isprintable():
             workName = workName + i
+    workName = workName.strip()
     workName.replace(" ", "_")
     workName.replace("~", "-")
     workName.replace('"', "`")
